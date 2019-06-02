@@ -12,7 +12,8 @@ const initialState = {
     tasks: [],
     loading: false,
     shareID: '',
-    shareClick: false
+    shareClick: false,
+    curTaskId: ''
 };
 
 export default function (state = initialState, action) {
@@ -52,9 +53,11 @@ export default function (state = initialState, action) {
                 loading: false
             };
         case ON_SHARE_CLICK:
+            console.log(111, action)
             return {
                 ...state,
-                shareClick: !state.shareClick
+                shareClick: !state.shareClick,
+                curTaskId: action.id
             }
         default:
             return state;

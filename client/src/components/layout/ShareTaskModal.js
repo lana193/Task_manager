@@ -12,7 +12,7 @@ import {
 
 import { connect } from 'react-redux';
 import { updateTask, getSharedId, shareClicked } from '../../actions/taskActions';
-import ConfirmModal from './ConfirmModal';
+// import ConfirmModal from './ConfirmModal';
 
 class ShareTaskModal extends Component {
     state = {
@@ -31,10 +31,10 @@ class ShareTaskModal extends Component {
     };
 
     onShare = e => {
+        console.log(6666, this.props.id)
         e.preventDefault();
         this.props.getSharedId(this.state.email);
-        //this.props.shareClicked();
-        //this.props.shareClick = true;
+        this.props.shareClicked(this.props.id);
 
         this.toggle();
     };
@@ -75,7 +75,7 @@ class ShareTaskModal extends Component {
                                 block>
                                     Share Task
                                 </Button>
-                                <ConfirmModal id={this.props.id} />
+                                {/* <ConfirmModal id={this.props.id} /> */}
                             </FormGroup>
                         </Form>
                     </ModalBody>

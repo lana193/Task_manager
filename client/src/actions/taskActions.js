@@ -84,8 +84,9 @@ export const getSharedId = (email, id) => dispatch => {
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-export const shareClicked = () => {
+export const shareClicked = (id) => {
     return {
-        type: ON_SHARE_CLICK
+        type: ON_SHARE_CLICK,
+        id
     }
 }

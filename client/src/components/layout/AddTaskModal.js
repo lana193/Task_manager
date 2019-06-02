@@ -41,7 +41,6 @@ class AddTaskModal extends Component {
             name: this.state.name,
             userID: this.props.userID
         }
-        console.log(222, newTask)
         // Add task via addTask action
         this.props.addTask(newTask);
 

@@ -6,6 +6,7 @@ import { getTasks, deleteTask } from '../../actions/taskActions';
 import PropTypes from 'prop-types';
 import EditTaskModal from './EditTaskModal';
 import ShareTaskModal from './ShareTaskModal';
+import ConfirmModal from './ConfirmModal';
 
 class TaskList extends Component {
     static propTypes = {
@@ -47,8 +48,9 @@ class TaskList extends Component {
                                             onClick={this.onDeleteCick.bind(this, _id)}
                                         >&times; Delete Task
                                         </Button>
-                                        <ShareTaskModal key={`shareid:${_id}`} id={_id} />
-                                        <EditTaskModal key={_id} id={_id} />
+                                        <ShareTaskModal id={_id} />
+                                        <EditTaskModal id={_id} />
+                                        <ConfirmModal />
                                     </ListGroupItem>
                                 </CSSTransition>
                             ))}
@@ -63,7 +65,8 @@ const mapStateToProps = state => ({
     task: state.task,
     isAuthenticated: state.auth.isAuthenticated,
     userID: state.auth.userID,
-    shareID: state.auth.shareID
+    shareID: state.auth.shareID,
+    shareClick: state.task.shareClick
 });
 
 export default connect(mapStateToProps, { getTasks, deleteTask })(TaskList);

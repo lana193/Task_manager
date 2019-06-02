@@ -20,9 +20,9 @@ class ConfirmModal extends Component {
         modal: false
     };
 
-    componentDidMount(){
-        const taskName = this.props.task.tasks.filter(task => task._id === this.props.id);
-        this.setState({ taskName: taskName[0].name });
+    componentDidUpdate(){
+        // const taskName = this.props.task.tasks.filter(task => task._id === this.props.id);
+        // this.setState({ taskName: taskName[0].name });
     }
 
     onSubmit = () => {
@@ -31,29 +31,29 @@ class ConfirmModal extends Component {
 
     toggle = () => {
         this.props.shareClicked();
-        this.setState({
-            modal: !this.state.modal
-        });
+        // this.setState({
+        //     modal: !this.state.modal
+        // });
     }
 
     onShareConfirm = () => {
-        const taskName = this.props.task.tasks.filter(task => task._id === this.props.id);
-        // this.setState({ taskName: taskName[0].name });
+        console.log(7777, this.props.curTaskId)
+        const taskName = this.props.task.tasks.filter(task => task._id === this.props.curTaskId);
         const updatedTask = {
             shareid: this.props.shareID,
             name: taskName[0].name
         }
-        this.props.updateTask(this.props.id, updatedTask, this.props.userID);
+        this.props.updateTask(this.props.curTaskId, updatedTask, this.props.userID);
         this.toggle();
     };
 
     render() {
-        console.log(444, this.state.taskName)
         return (
             <React.Fragment>
                 <Modal
                     toggle={this.toggle}
-                    isOpen={this.props.shareClicked}
+                    isOpen={this.props.shareClick}
+                    // isOpen={this.state.modal}
                 >
                     <ModalHeader toggle={this.toggle}>
                         {this.state.taskName}
@@ -65,8 +65,8 @@ class ConfirmModal extends Component {
                                 <Button
                                     color='primary'
                                     style={{ marginTop: '2rem' }}
-                                    // onClick={() => this.onShareConfirm()}
-                                    onClick={this.onShareClick}
+                                    onClick={this.onShareConfirm}
+                                    // onClick={this.onShareClick}
                                     block>
                                     Confirm
                                 </Button>
@@ -91,7 +91,8 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     shareID: state.task.shareID,
     shareClick: state.task.shareClick,
-    userID: state.auth.userID
+    userID: state.auth.userID,
+    curTaskId: state.task.curTaskId
 });
 
 export default connect(mapStateToProps, { updateTask, shareClicked })(ConfirmModal);
