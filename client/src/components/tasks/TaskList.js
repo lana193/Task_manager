@@ -6,14 +6,14 @@ import { getTasks, deleteTask } from '../../actions/taskActions';
 import PropTypes from 'prop-types';
 import EditTaskModal from './EditTaskModal';
 import ShareTaskModal from './ShareTaskModal';
-import ConfirmModal from './ConfirmModal';
+import ConfirmShareTaskModal from './ConfirmShareTaskModal';
 
 class TaskList extends Component {
     static propTypes = {
         getTasks: PropTypes.func.isRequired,
         task: PropTypes.object.isRequired,
         isAuthenticated: PropTypes.bool,
-        userID: PropTypes.string
+        userId: PropTypes.string
     };
 
     componentDidMount() {
@@ -21,8 +21,8 @@ class TaskList extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        if (prevProps.userID !== this.props.userID
-            || prevProps.shareID !== this.props.shareID) {
+        if (prevProps.userId !== this.props.userId
+            || prevProps.shareId !== this.props.shareId) {
             this.props.getTasks(localStorage.checkID);
         }
     }
@@ -50,12 +50,12 @@ class TaskList extends Component {
                                         </Button>
                                         <ShareTaskModal id={_id} />
                                         <EditTaskModal id={_id} />
-                                        <ConfirmModal />
+                                        <ConfirmShareTaskModal />
                                     </ListGroupItem>
                                 </CSSTransition>
                             ))}
                         </TransitionGroup>
-                    </ListGroup> : <h4>Hi</h4>}
+                    </ListGroup> : null}
             </Container>
         );
     }
@@ -64,8 +64,8 @@ class TaskList extends Component {
 const mapStateToProps = state => ({
     task: state.task,
     isAuthenticated: state.auth.isAuthenticated,
-    userID: state.auth.userID,
-    shareID: state.auth.shareID,
+    userId: state.auth.userId,
+    shareId: state.auth.shareId,
     shareClick: state.task.shareClick
 });
 

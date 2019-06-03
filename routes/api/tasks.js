@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
 router.post('/', auth, (req, res) => {
   const newTask = new Task({
     name: req.body.name,
-    userid: req.body.userID,
+    userid: req.body.userid,
     shareid: req.body.shareid
   })
   newTask.save().then(task => res.json(task));

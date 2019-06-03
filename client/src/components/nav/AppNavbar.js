@@ -44,7 +44,6 @@ class AppNavbar extends Component {
                     <LogOut />
                 </NavItem>
             </Fragment>
-
         );
 
         const guestLinks = (
@@ -62,7 +61,7 @@ class AppNavbar extends Component {
             <div>
             <Navbar color="dark" dark expand="sm" className="mb-5">
                 <Container>
-                    <NavbarBrand href="/">Task List</NavbarBrand>
+                    <NavbarBrand style={{textTransform: 'uppercase'}} href="/">Task Manager</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className='ml-auto' navbar>

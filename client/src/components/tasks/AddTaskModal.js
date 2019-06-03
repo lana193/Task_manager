@@ -11,14 +11,19 @@ import {
 } from 'reactstrap';
 
 import { connect } from 'react-redux';
-import { updateTask } from '../../actions/taskActions';
+import { addTask } from '../../actions/taskActions';
+import PropTypes from 'prop-types';
 
-class EditTaskModal extends Component {
+class AddTaskModal extends Component {
     state = {
         modal: false,
         name: ''
     };
 
+    static propTypes = {
+        isAuthenticated: PropTypes.bool
+    };
+    
     toggle = () => {
         this.setState({
             modal: !this.state.modal
@@ -26,35 +31,42 @@ class EditTaskModal extends Component {
     };
 
     onChange = e => {
-        this.setState({name: e.target.value});
+        this.setState({ [e.target.name]: e.target.value });
     };
 
-    onEditCick = () => {
-        console.log(3333, this.props.id, this.props)
-        const updatedTask = {
+    onSubmit = e => {
+        e.preventDefault();
+
+        const newTask = {
             name: this.state.name,
-            shareid: this.props.shareID
+            userid: this.props.userId
         }
-        this.props.updateTask(this.props.id, updatedTask, this.props.userID);
+        // Add task via addTask action
+        this.props.addTask(newTask);
+
+        // Close Modal
         this.toggle();
     };
 
     render () {
         return(
-            <React.Fragment>
-               <Button
-                    className='update-btn'
-                    color='primary'
-                    size='sm'
-                    onClick={ this.toggle }>Edit Task
-                </Button> 
-                
+            <div>
+                { this.props.isAuthenticated ? <Button
+                color='dark'
+                style={{marginBottom: '2rem'}}
+                onClick={this.toggle}
+                >Add Task</Button> : 
+                <div>
+                    <h4 className='mb-3 ml-4'>Keep your work on track and your team involved
+                with a simple task management tool</h4> 
+                    <h4 className='mb-3 ml-4'>Please Log In to manage tasks</h4>
+                </div>}
                 <Modal
                     isOpen={this.state.modal}
                     toggle={this.toggle}
                 >
                     <ModalHeader toggle={this.toggle}>
-                        Edit Task
+                        Add to Task List
                     </ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.onSubmit}>
@@ -64,22 +76,20 @@ class EditTaskModal extends Component {
                                 type='text'
                                 name='name'
                                 id='task'
-                                placeholder='Edit Task'
-                                value={this.state.name}
+                                placeholder='Enter task name'
                                 onChange={this.onChange}
                                 />
                                 <Button
                                 color='dark'
                                 style={{marginTop: '2rem'}}
-                                onClick={()=>this.onEditCick()}
                                 block>
-                                    Edit Task
+                                    Add Task
                                 </Button>
                             </FormGroup>
                         </Form>
                     </ModalBody>
                 </Modal>
-            </React.Fragment>
+            </div>
         );
     }
 }
@@ -87,8 +97,7 @@ class EditTaskModal extends Component {
 const mapStateToProps = state => ({
     task: state.task,
     isAuthenticated: state.auth.isAuthenticated,
-    userID: state.auth.userID,
-    shareID: state.task.shareID
+    userId: state.auth.userId
 });
 
-export default connect(mapStateToProps, { updateTask })(EditTaskModal);
+export default connect(mapStateToProps, {addTask})(AddTaskModal);

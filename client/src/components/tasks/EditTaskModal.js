@@ -11,13 +11,12 @@ import {
 } from 'reactstrap';
 
 import { connect } from 'react-redux';
-import { updateTask, getSharedId, shareClicked } from '../../actions/taskActions';
-// import ConfirmModal from './ConfirmModal';
+import { updateTask } from '../../actions/taskActions';
 
-class ShareTaskModal extends Component {
+class EditTaskModal extends Component {
     state = {
-        email: '',
-        modal: false
+        modal: false,
+        name: ''
     };
 
     toggle = () => {
@@ -27,15 +26,15 @@ class ShareTaskModal extends Component {
     };
 
     onChange = e => {
-        this.setState({email: e.target.value});
+        this.setState({name: e.target.value});
     };
 
-    onShare = e => {
-        console.log(6666, this.props.id)
-        e.preventDefault();
-        this.props.getSharedId(this.state.email);
-        this.props.shareClicked(this.props.id);
-
+    onEditCick = () => {
+        const updatedTask = {
+            name: this.state.name,
+            shareid: this.props.shareId
+        }
+        this.props.updateTask(this.props.id, updatedTask, this.props.userId);
         this.toggle();
     };
 
@@ -43,10 +42,10 @@ class ShareTaskModal extends Component {
         return(
             <React.Fragment>
                <Button
-                    className='share-btn'
-                    color='warning'
+                    className='update-btn'
+                    color='primary'
                     size='sm'
-                    onClick={ this.toggle }>Share Task
+                    onClick={ this.toggle }>Edit Task
                 </Button> 
                 
                 <Modal
@@ -54,32 +53,30 @@ class ShareTaskModal extends Component {
                     toggle={this.toggle}
                 >
                     <ModalHeader toggle={this.toggle}>
-                        Share Task
+                        Edit Task
                     </ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for='task'>Task</Label>
                                 <Input
-                                type='email'
-                                name='email'
+                                type='text'
+                                name='name'
                                 id='task'
-                                placeholder='Email to share'
-                                value={this.state.email}
+                                placeholder='Edit Task'
+                                value={this.state.name}
                                 onChange={this.onChange}
                                 />
                                 <Button
-                                color='warning'
+                                color='dark'
                                 style={{marginTop: '2rem'}}
-                                onClick={this.onShare}
+                                onClick={()=>this.onEditCick()}
                                 block>
-                                    Share Task
+                                    Edit Task
                                 </Button>
-                                {/* <ConfirmModal id={this.props.id} /> */}
                             </FormGroup>
                         </Form>
                     </ModalBody>
-
                 </Modal>
             </React.Fragment>
         );
@@ -88,7 +85,9 @@ class ShareTaskModal extends Component {
 
 const mapStateToProps = state => ({
     task: state.task,
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    userId: state.auth.userId,
+    shareId: state.task.shareId
 });
 
-export default connect(mapStateToProps, { updateTask, getSharedId, shareClicked })(ShareTaskModal);
+export default connect(mapStateToProps, { updateTask })(EditTaskModal);

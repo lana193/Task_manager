@@ -11,19 +11,14 @@ import {
 } from 'reactstrap';
 
 import { connect } from 'react-redux';
-import { addTask } from '../../actions/taskActions';
-import PropTypes from 'prop-types';
+import { updateTask, getSharedId, shareClicked } from '../../actions/taskActions';
 
-class AddTaskModal extends Component {
+class ShareTaskModal extends Component {
     state = {
-        modal: false,
-        name: ''
+        email: '',
+        modal: false
     };
 
-    static propTypes = {
-        isAuthenticated: PropTypes.bool
-    };
-    
     toggle = () => {
         this.setState({
             modal: !this.state.modal
@@ -31,69 +26,65 @@ class AddTaskModal extends Component {
     };
 
     onChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({email: e.target.value});
     };
 
-    onSubmit = e => {
+    onShare = e => {
         e.preventDefault();
+        this.props.getSharedId(this.state.email);
+        this.props.shareClicked(this.props.id);
 
-        const newTask = {
-            name: this.state.name,
-            userID: this.props.userID
-        }
-        // Add task via addTask action
-        this.props.addTask(newTask);
-
-        // Close Modal
         this.toggle();
     };
 
     render () {
         return(
-            <div>
-                { this.props.isAuthenticated ? <Button
-                color='dark'
-                style={{marginBottom: '2rem'}}
-                onClick={this.toggle}
-                >Add Task</Button> : <h4 className='mb-3 ml-4'>Please Log In to manage tasks</h4>}
+            <React.Fragment>
+               <Button
+                    className='share-btn'
+                    color='secondary'
+                    size='sm'
+                    onClick={ this.toggle }>Share Task
+                </Button> 
                 
                 <Modal
                     isOpen={this.state.modal}
                     toggle={this.toggle}
                 >
                     <ModalHeader toggle={this.toggle}>
-                        Add to Task List
+                        Share Task
                     </ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for='task'>Task</Label>
                                 <Input
-                                type='text'
-                                name='name'
+                                type='email'
+                                name='email'
                                 id='task'
-                                placeholder='Add Task'
+                                placeholder='Email to share'
+                                value={this.state.email}
                                 onChange={this.onChange}
                                 />
                                 <Button
-                                color='dark'
+                                color='primary'
                                 style={{marginTop: '2rem'}}
+                                onClick={this.onShare}
                                 block>
-                                    Add Task
+                                    Share Task
                                 </Button>
                             </FormGroup>
                         </Form>
                     </ModalBody>
                 </Modal>
-            </div>
+            </React.Fragment>
         );
     }
 }
 
 const mapStateToProps = state => ({
     task: state.task,
-    isAuthenticated: state.auth.isAuthenticated,
-    userID: state.auth.userID
+    isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, {addTask})(AddTaskModal);
+export default connect(mapStateToProps, { updateTask, getSharedId, shareClicked })(ShareTaskModal);

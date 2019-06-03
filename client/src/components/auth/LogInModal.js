@@ -30,12 +30,7 @@ class LogInModal extends Component {
     error: PropTypes.object.isRequired,
     login: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired
-    // getTasks: PropTypes.func.isRequired
   };
-
-  // componentDidMount() {
-  //   this.props.getTasks(localStorage.checkID);
-// };
 
   componentDidUpdate(prevProps) {
     const { error, isAuthenticated } = this.props;
@@ -80,18 +75,16 @@ class LogInModal extends Component {
 
     // Attempt to login
     this.props.login(user)
-    // this.props.getTasks(localStorage.checkID);
   };
 
   render() {
     return (
       <div>
         <NavLink onClick={this.toggle} href='#'>
-          Login
+          Log In
         </NavLink>
-
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Login</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Log In to your account</ModalHeader>
           <ModalBody>
             {this.state.msg ? (
               <Alert color='danger'>{this.state.msg}</Alert>
@@ -103,7 +96,7 @@ class LogInModal extends Component {
                   type='email'
                   name='email'
                   id='email'
-                  placeholder='Email'
+                  placeholder='Enter your email'
                   className='mb-3'
                   onChange={this.onChange}
                 />
@@ -113,12 +106,12 @@ class LogInModal extends Component {
                   type='password'
                   name='password'
                   id='password'
-                  placeholder='Password'
+                  placeholder='Enter the password'
                   className='mb-3'
                   onChange={this.onChange}
                 />
                 <Button color='dark' style={{ marginTop: '2rem' }} block>
-                  Login
+                  Log In
                 </Button>
               </FormGroup>
             </Form>
@@ -131,8 +124,7 @@ class LogInModal extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  error: state.error,
-  // userID: state.auth.userID
+  error: state.error
 });
 
 export default connect(mapStateToProps, { login, clearErrors, getTasks })(LogInModal);

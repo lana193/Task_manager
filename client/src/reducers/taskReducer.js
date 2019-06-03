@@ -11,7 +11,7 @@ import {
 const initialState = {
     tasks: [],
     loading: false,
-    shareID: '',
+    shareId: '',
     shareClick: false,
     curTaskId: ''
 };
@@ -22,8 +22,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 tasks: action.payload,
-                loading: false//,
-                // isOpenTaskModal: false
+                loading: false
             };
         case DELETE_TASK:
             return {
@@ -49,11 +48,10 @@ export default function (state = initialState, action) {
         case GET_SHARED_ID:
             return {
                 ...state,
-                shareID: action.payload,
+                shareId: action.payload,
                 loading: false
             };
         case ON_SHARE_CLICK:
-            console.log(111, action)
             return {
                 ...state,
                 shareClick: !state.shareClick,

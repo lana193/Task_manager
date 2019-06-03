@@ -38,11 +38,11 @@ export const addTask = task => (dispatch, getState) => {
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-export const updateTask = (id, task, userId) => (dispatch, getState) => {
+export const updateTask = (id, task, userID) => (dispatch, getState) => {
     axios
         .put(`/api/tasks/${id}`, task, tokenConfig(getState))
         .then(() => {
-            return axios.get(`/api/tasks/${userId}`)
+            return axios.get(`/api/tasks/${userID}`)
         })
         .then(res => {
             dispatch({

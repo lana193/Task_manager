@@ -104,7 +104,7 @@ class SignUpModal extends Component {
                                 type='text'
                                 name='name'
                                 id='name'
-                                placeholder='Your name'
+                                placeholder='Enter your name'
                                 className='mb-3'
                                 onChange={this.onChange}
                                 />
@@ -113,7 +113,7 @@ class SignUpModal extends Component {
                                 type='email'
                                 name='email'
                                 id='email'
-                                placeholder='Your email'
+                                placeholder='Enter your email'
                                 className='mb-3'
                                 onChange={this.onChange}
                                 />
@@ -122,7 +122,7 @@ class SignUpModal extends Component {
                                 type='password'
                                 name='password'
                                 id='password'
-                                placeholder='Your password'
+                                placeholder='Enter the password'
                                 className='mb-3'
                                 onChange={this.onChange}
                                 />
@@ -139,7 +139,6 @@ class SignUpModal extends Component {
             </div>
         );
     }
-
 }
 
 const mapStateToProps = state => ({

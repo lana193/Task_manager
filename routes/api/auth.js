@@ -7,7 +7,6 @@ const auth = require('../../middleware/auth');
 
 // User Model
 const User = require('../../models/User');
-const Task = require('../../models/Task');
 
 // @route   POST api/auth
 // @desc    Auth user
@@ -51,7 +50,7 @@ router.post('/', (req, res) => {
 });
 
 // @route   GET api/auth/user
-// @desc    Get user data
+// @desc    GET user data
 // @access  Private
 router.get('/user', auth, (req, res) => {
   User.findById(req.user.id)

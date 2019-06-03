@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AppNavbar from './components/layout/AppNavbar';
-import TaskList from './components/layout/TaskList';
-import AddTaskModal from './components/layout/AddTaskModal';
+import AppNavbar from './components/nav/AppNavbar';
+import TaskList from './components/tasks/TaskList';
+import AddTaskModal from './components/tasks/AddTaskModal';
 import { Container } from 'reactstrap';
 
 import { Provider } from "react-redux";
