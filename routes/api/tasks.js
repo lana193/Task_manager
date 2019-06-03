@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-//import PropTypes from 'prop-types';
 
 // Task Model
 const Task = require('../../models/Task');
-const User = require('../../models/User');
+
 // @route   GET api/tasks
 // @desc    Get All Tasks
 // @access  Public
@@ -16,7 +15,7 @@ router.get('/:id', (req, res) => {
 });
 
 // @route   POST api/tasks
-// @desc    Create An Task
+// @desc    Create A Task
 // @access  Private
 router.post('/', auth, (req, res) => {
   const newTask = new Task({
@@ -41,7 +40,7 @@ router.put('/:id', auth, (req, res) => {
 });
 
 // @route   DELETE api/items/:id
-// @desc    Delete A Item
+// @desc    Delete A Task
 // @access  Private
 router.delete('/:id', auth, (req, res) => {
   Task.findById(req.params.id)

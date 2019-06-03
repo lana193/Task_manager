@@ -1,26 +1,13 @@
 const mongoose = require('mongoose');
 const express = require('express');
-// const path = reguire('path');
 const config = require('config');
-// var cors = require('cors');
-// const logger = require('morgan');
-// const Data = require('./data');
-// const passport = require("passport");
 
 const API_PORT = 3001;
 const app = express();
-//app.use(cors());
 
-// bodyParser, parses the request body to be a readable json format
-//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-//app.use(logger("dev"));
 
 const router = express.Router();
-// Passport middleware
-//app.use(passport.initialize());
-// Passport config
-//require("./config/passport")(passport);
 
 // Use Routes
 app.use('/api/tasks', require('./routes/api/tasks'));
@@ -34,7 +21,8 @@ const dbRoute = config.get('mongoURI');
 mongoose.connect(
   dbRoute,
   { useNewUrlParser: true,
-    useCreateIndex: true }
+    useCreateIndex: true,
+    useFindAndModify: false }
 );
 
 let db = mongoose.connection;
