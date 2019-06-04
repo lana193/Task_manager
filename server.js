@@ -26,7 +26,7 @@ app.use('/api/tasks', require('./routes/api/tasks'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
