@@ -9,10 +9,10 @@ const app = express();
 app.use(express.json());
 
 // DB Config
-const db = config.get('mongoURI');
+const dbRoute = config.get('mongoURI');
 
 // Connect to Mongo
-mongoose.connect(db, 
+mongoose.connect(dbRoute, 
     { 
     useNewUrlParser: true,
     useCreateIndex: true,
