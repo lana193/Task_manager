@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const config = require('config');
-require('dotenv').config();
 
 const app = express();
 
@@ -10,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // DB Config
-const CONNECTION_URI = process.env[config.get('mongoURI')] || process.env.DATABASE_URL;
+const CONNECTION_URI = config.get('mongoURI');
 
 // Connect to Mongo
 mongoose.connect(CONNECTION_URI, 
