@@ -1,4 +1,5 @@
 {
     "mongoURI": "mongodb+srv://lana193:20082009abcd%3F@cluster0-kbzxy.mongodb.net/task_manager?retryWrites=true&w=majority",
-    "jwtSecret": "jwtSecret"
-}
+    "jwtSecret": "jwtSecret",
+    "heroku config": "set mongolab_uri=mongodb+srv://lana193:20082009abcd%3F@cluster0-kbzxy.mongodb.net/task_manager?retryWrites=true&w=majority"
+}  

@@ -12,10 +12,7 @@ const User = require('../../models/User');
 // @desc    Register new user
 // @access  Public
 router.post('/', (req, res) => {
-  // const { name, email, password } = req.body;
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
+  const { name, email, password } = req.body;
 
   // Simple validation
   if(!name || !email || !password) {
@@ -32,7 +29,6 @@ router.post('/', (req, res) => {
         email,
         password
       });
-      newUser.save().then(user => res.json(user));
 
       // Create salt & hash
       bcrypt.genSalt(10, (err, salt) => {

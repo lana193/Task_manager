@@ -35,7 +35,7 @@ class TaskList extends Component {
         const { tasks } = this.props.task;
         return (
             <Container>
-                {/* {this.props.isAuthenticated ? */}
+                {this.props.isAuthenticated ?
                     <ListGroup>
                         <TransitionGroup className='task-list'>
                             {tasks.map(({ _id, name }) => (
@@ -55,7 +55,7 @@ class TaskList extends Component {
                                 </CSSTransition>
                             ))}
                         </TransitionGroup>
-                    </ListGroup> 
+                    </ListGroup> : null}
             </Container>
         );
     }
