@@ -9,10 +9,10 @@ const app = express();
 app.use(express.json());
 
 // DB Config
-const dbRoute = config.get('mongoURI');
+const CONNECTION_URI = process.env.MONGO_URI || config.get('mongoURI');
 
 // Connect to Mongo
-mongoose.connect(dbRoute, 
+mongoose.connect(CONNECTION_URI, 
     { 
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -26,7 +26,7 @@ app.use('/api/tasks', require('./routes/api/tasks'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
@@ -38,4 +38,4 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(port, () => {console.log(`Server started on port ${port}`)});
+app.listen(PORT, () => {console.log(`Server started on port ${PORT}`)});
