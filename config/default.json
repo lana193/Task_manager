@@ -1,4 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://lana193:20082009abcd%3F@cluster0-kbzxy.mongodb.net/task_manager?retryWrites=true",
+    "mongoURI": "mongodb+srv://<user>:<password>@cluster0-kbzxy.mongodb.net/task_manager?retryWrites=true",
     "jwtSecret": "jwtSecret"
 }  
