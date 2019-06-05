@@ -9,14 +9,14 @@ const app = express();
 app.use(express.json());
 
 // DB Config
-const CONNECTION_URI = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/task_manager'//config.get('mongoURI');
+const CONNECTION_URI = process.env.MONGOLAB_URI || config.get('mongoURI');
 
 // Connect to Mongo
 mongoose.connect(CONNECTION_URI, 
-    { 
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false }
+{ 
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false }
 )
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
