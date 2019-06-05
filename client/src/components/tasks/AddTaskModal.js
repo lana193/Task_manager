@@ -51,16 +51,16 @@ class AddTaskModal extends Component {
     render () {
         return(
             <div>
-                { this.props.isAuthenticated ? <Button
+                <Button
                 color='dark'
                 style={{marginBottom: '2rem'}}
                 onClick={this.toggle}
-                >Add Task</Button> : 
-                <div>
+                >Add Task</Button>
+                {/* <div>
                     <h4 className='mb-3 ml-4'>Keep your work on track and your team involved
                 with a simple task management tool</h4> 
                     <h4 className='mb-3 ml-4'>Please Log In to manage tasks</h4>
-                </div>}
+                </div>} */}
                 <Modal
                     isOpen={this.state.modal}
                     toggle={this.toggle}

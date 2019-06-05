@@ -17,7 +17,7 @@ router.get('/:id', (req, res) => {
 // @route   POST api/tasks
 // @desc    Create A Task
 // @access  Private
-router.post('/', auth, (req, res) => {
+router.post('/', (req, res) => {
   const newTask = new Task({
     name: req.body.name,
     userid: req.body.userid,
@@ -30,7 +30,7 @@ router.post('/', auth, (req, res) => {
 // @desc    UPDATE A Task
 // @access  Public
 
-router.put('/:id', auth, (req, res) => {
+router.put('/:id', (req, res) => {
   Task.findByIdAndUpdate(req.params.id, {$set: {
     name: req.body.name,
     shareid: req.body.shareid
@@ -42,7 +42,7 @@ router.put('/:id', auth, (req, res) => {
 // @route   DELETE api/items/:id
 // @desc    Delete A Task
 // @access  Private
-router.delete('/:id', auth, (req, res) => {
+router.delete('/:id', (req, res) => {
   Task.findById(req.params.id)
     .then(task => task.remove().then(() => res.json({ success: true })))
     .catch(err => res.status(404).json({ success: false }));
