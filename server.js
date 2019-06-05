@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // DB Config
-const CONNECTION_URI = config.get('mongoURI');
+const CONNECTION_URI = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:3001/'//config.get('mongoURI');
 
 // Connect to Mongo
 mongoose.connect(CONNECTION_URI, 
